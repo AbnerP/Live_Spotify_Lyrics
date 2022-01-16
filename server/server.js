@@ -7,9 +7,9 @@ const bodyParser = require("body-parser");
 const { default: axios } = require("axios");
 require("dotenv").config();
 
-const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const REDIRECT_URI = process.env.REDIRECT_URI;
+const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
+const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
+const REDIRECT_URI = process.env.SPOTIFY_REDIRECT_URI;
 const MUSICMATCH_API_KEY = process.env.MUSICMATCH_API_KEY;
 
 const generateRandomString = function (length) {
