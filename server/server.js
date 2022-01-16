@@ -4,7 +4,6 @@ const cors = require("cors");
 const querystring = require("querystring");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const { default: axios } = require("axios");
 const Genius = require("genius-lyrics");
 const Client = new Genius.Client();
 require("dotenv").config();
@@ -12,7 +11,6 @@ require("dotenv").config();
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 const REDIRECT_URI = process.env.SPOTIFY_REDIRECT_URI;
-const MUSICMATCH_API_KEY = process.env.MUSICMATCH_API_KEY;
 
 const generateRandomString = function (length) {
   let text = "";
@@ -26,7 +24,6 @@ const generateRandomString = function (length) {
 };
 
 const stateKey = "spotify_auth_state";
-const musicMatchURL = "https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?";
 const app = express();
 
 app.use(cors()).use(cookieParser()).use(bodyParser.json());
@@ -94,12 +91,10 @@ app.get("/callback", (req, res) => {
           json: true,
         };
 
-        // use the access token to access the Spotify Web API
         request.get(options, function (error, response, body) {
           console.log(body);
         });
 
-        // we can also pass the token to the browser to make requests from there
         res.redirect(
           "http://localhost:3000/lyrics#" +
             querystring.stringify({
@@ -164,5 +159,6 @@ const trimLyrics = (lyrics) =>{
     }
     return res;
 }
+
 console.log("Listening on 8888");
 app.listen(8888);

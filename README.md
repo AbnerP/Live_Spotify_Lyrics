@@ -8,7 +8,6 @@ Sign in with your Spotify account and get the lyrics to the song you are current
 2. Add the following environment variables
 
 ```
-MUSICMATCH_API_KEY = XXXXXXXXXXXXXXX
 SPOTIFY_CLIENT_ID = XXXXXXXXXXXXXXX
 SPOTIFY_CLIENT_SECRET = XXXXXXXXXXXXXXX
 SPOTIFY_REDIRECT_URI = XXXXXXXXXXXXXXX
