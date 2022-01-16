@@ -39,16 +39,17 @@ function Lyrics() {
 
   return (
     <div className="lyrics">
+      <button className="lyrics__updateBTN" onClick={getNowPlaying} >Update Song</button>
+
       <Song title={title} artist={artist} image={image}/>
 
-      <button className="lyrics__updateBTN" onClick={getNowPlaying} >Update</button>
       {lyrics.map((line, i) => {
         if (i !== lyrics.length - 2) {
           return <div className="lyrics__line" key={i}>{line}</div>;
         }
         return null;
       })}
-      {lyrics.length === 1 ? <p>no lyrics</p> : null}
+      
     </div>
   );
 }

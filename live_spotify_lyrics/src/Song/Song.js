@@ -8,7 +8,7 @@ function Song({ title, artist, image }) {
         className="song__albumWork"
         src={image}
         width="200px"
-        alt={`${title} Album Cover`}
+        alt={``}
       />
       <div className="song__info">
         <h1 className="song__title">{title}</h1>

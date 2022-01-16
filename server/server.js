@@ -5,6 +5,8 @@ const querystring = require("querystring");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const { default: axios } = require("axios");
+const Genius = require("genius-lyrics");
+const Client = new Genius.Client();
 require("dotenv").config();
 
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
@@ -144,23 +146,23 @@ app.get("/refresh_token", (req, res) => {
   });
 });
 
-app.post("/song_lyrics", (req, res) => {
-  axios
-    .get(
-      `${musicMatchURL}apikey=${MUSICMATCH_API_KEY}&q_artist=${req.body.artist}&q_track=${req.body.title}`
-    )
-    .then(({ data }) => {
-      console.log(data.message);
-      res.json({
-        lyrics: trimLyrics(data.message.body.lyrics.lyrics_body.split("\n")),
-      });
-    })
-    .catch(console.error);
+app.post("/song_lyrics", async (req, res) => {
+  const searches = await Client.songs.search(req.body.title);
+  const firstSong = searches[0];
+  const lyrics = await firstSong.lyrics();
+  res.json({
+    lyrics: trimLyrics(lyrics.split("\n")),
+  });
 });
 
-const trimLyrics = (arr) =>{
-    arr.pop()
-    return arr;
+const trimLyrics = (lyrics) =>{
+    let res = [];
+    for(let line of lyrics){
+      if(!(line.includes("["))){
+        res.push(line);
+      }
+    }
+    return res;
 }
 console.log("Listening on 8888");
 app.listen(8888);
